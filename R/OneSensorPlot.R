@@ -59,17 +59,18 @@ OneSensorPlot <- function(data_path , imeiID , sitenames , variable = c('pm25' ,
       plot.data1 <- sample_list[[i]] %>%  # 變動數字以選取感測器
         pivot_longer(. , cols = variable2 , names_to = 'Var' , values_to = 'Value')
       plot.data1$Var <- factor(plot.data1$Var , levels = variable2 , labels = labels)
+      subject <- as.character(plot.data1$type[1])
 
       pp1 <- ggplot(plot.data1 , aes(x = date , y = Value)) +
         geom_line(size = 1.5) +
         scale_x_datetime(breaks = date_breaks(x_breaks) , date_labels = x_labels , timezone = Sys.timezone(location = TRUE)) +
         theme_bw() +
-        labs(title = as.character(plot.data1$type[1]) , subtitle = subtitle , x = xlab , y = ylab) +
+        labs(title = subject , subtitle = subtitle , x = xlab , y = ylab) +
         theme(plot.title = element_text(hjust = 0.5 , face = 'bold' , size = 38)) +
         theme(text = element_text(family = font , size = 25) ,
               plot.subtitle = element_text(size = 21 , hjust = 0.5)) +
         facet_wrap( ~ Var , scales = 'free_y' , ncol = N_cols , labeller =  label_parsed)
-      ggsave(pp1 , file = paste0(sitenames[i] , '_逐分.png') , width = width , height = height , units = 'cm')
+      ggsave(pp1 , file = paste0(subject , '_逐分.png') , width = width , height = height , units = 'cm')
     }
 
   }else if(mode == 'havg'){  # 小時平均
@@ -79,17 +80,18 @@ OneSensorPlot <- function(data_path , imeiID , sitenames , variable = c('pm25' ,
       plot.data2 <- avg_list[[i]] %>%  # 變動數字以選取感測器
         pivot_longer(. , cols = variable2 , names_to = 'Var' , values_to = 'Value')
       plot.data2$Var <- factor(plot.data2$Var , levels = variable2)
+      subject <- as.character(plot.data2$type[1])
 
       pp2 <- ggplot(plot.data2 , aes(x = hour , y = Value)) +
         geom_line(size = 1.5) +
         scale_x_continuous(name = 'Hour' , breaks = seq(0,24,2)) +
         theme_bw() +
-        labs(title = as.character(plot.data2$type[1]) , subtitle = subtitle , y = ylab) +
+        labs(title = subject , subtitle = subtitle , y = ylab) +
         theme(plot.title = element_text(hjust = 0.5 , face = 'bold' , size = 38)) +
         theme(text = element_text(family = font , size = 25) ,
               plot.subtitle = element_text(size = 21 , hjust = 0.5)) +
         facet_wrap( ~ Var , scales = 'free_y' , ncol = N_cols , labeller =  label_parsed)
-      ggsave(pp2 , file = paste0(sitenames[i] , '_小時平均.png') , width = 20 , height = 30 , units = 'cm')
+      ggsave(pp2 , file = paste0(subject , '_小時平均.png') , width = 20 , height = 30 , units = 'cm')
 
       write.csv(avg , file = '小時平均數據檔.csv')
     }
@@ -102,17 +104,18 @@ OneSensorPlot <- function(data_path , imeiID , sitenames , variable = c('pm25' ,
       plot.data1 <- sample_list[[i]] %>%  # 變動數字以選取感測器
         pivot_longer(. , cols = variable2 , names_to = 'Var' , values_to = 'Value')
       plot.data1$Var <- factor(plot.data1$Var , levels = variable2)
+      subject <- as.character(plot.data1$type[1])
 
       pp1 <- ggplot(plot.data1 , aes(x = date , y = Value)) +
         geom_line(size = 1.5) +
         scale_x_datetime(breaks = date_breaks(x_breaks) , date_labels = x_labels , timezone = Sys.timezone(location = TRUE)) +
         theme_bw() +
-        labs(title = as.character(plot.data1$type[1]) , subtitle = subtitle , x = xlab , y = ylab) +
+        labs(title = subject , subtitle = subtitle , x = xlab , y = ylab) +
         theme(plot.title = element_text(hjust = 0.5 , face = 'bold' , size = 38)) +
         theme(text = element_text(family = font , size = 25) ,
               plot.subtitle = element_text(size = 21 , hjust = 0.5)) +
         facet_wrap( ~ Var , scales = 'free_y' , ncol = N_cols , labeller =  label_parsed)
-      ggsave(pp1 , file = paste0(sitenames[i] , '_逐分.png') , width = width , height = height , units = 'cm')
+      ggsave(pp1 , file = paste0(subject , '_逐分.png') , width = width , height = height , units = 'cm')
     }
     avg_list <- avg %>% group_split(type)  # 照type(地點)分組
 
@@ -120,17 +123,18 @@ OneSensorPlot <- function(data_path , imeiID , sitenames , variable = c('pm25' ,
       plot.data2 <- avg_list[[i]] %>%  # 變動數字以選取感測器
         pivot_longer(. , cols = variable2 , names_to = 'Var' , values_to = 'Value')
       plot.data2$Var <- factor(plot.data2$Var , levels = variable2)
+      subject <- as.character(plot.data2$type[1])
 
       pp2 <- ggplot(plot.data2 , aes(x = hour , y = Value)) +
         geom_line(size = 1.5) +
         scale_x_continuous(name = 'Hour' , breaks = seq(0,24,2)) +
         theme_bw() +
-        labs(title = as.character(plot.data2$type[1]) , subtitle = subtitle , y = ylab) +
+        labs(title = subject , subtitle = subtitle , y = ylab) +
         theme(plot.title = element_text(hjust = 0.5 , face = 'bold' , size = 38)) +
         theme(text = element_text(family = font , size = 25) ,
               plot.subtitle = element_text(size = 21 , hjust = 0.5)) +
         facet_wrap( ~ Var , scales = 'free_y' , ncol = N_cols , labeller =  label_parsed)
-      ggsave(pp2 , file = paste0(sitenames[i] , '_小時平均.png') , width = 20 , height = 30 , units = 'cm')
+      ggsave(pp2 , file = paste0(subject , '_小時平均.png') , width = 20 , height = 30 , units = 'cm')
 
       write.csv(avg , file = '小時平均數據檔.csv')
 
