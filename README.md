@@ -9,8 +9,8 @@ install.packages("devtools")
 devtools::install_github("lsyang99/changhua.sensors")
 ```
 
-Functions include:
-`EPAdownload`: Download air monitoing station data from Taiwan EPA.
-`SummaryEns`: Perform regression analysis and compare results between our low-cost sensors and Taiwan EPA data.
-`OneSensorPlot`: Return a  monthly report with multple variables per sensor. 
-`MultiSensorPlot`: Return a monthly report with one single variable for multiple sensors. 
+Functions include:                   
+`EPAdownload`: Download air monitoing station data from Taiwan EPA.                 
+`SummaryEns`: Perform regression analysis and compare results between our low-cost sensors and Taiwan EPA data.           
+`OneSensorPlot`: Return a  monthly report with multple variables per sensor.             
+`MultiSensorPlot`: Return a monthly report with one single variable for multiple sensors.            
